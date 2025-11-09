@@ -2,6 +2,11 @@
 
 A modern, clean blog application built with Laravel 12, Livewire 3, and Torchlight for beautiful syntax highlighting. Inspired by PaperMod theme design.
 
+![Laravel](https://img.shields.io/badge/Laravel-12.37.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![PHP](https://img.shields.io/badge/PHP-8.4.11-777BB4?style=for-the-badge&logo=php&logoColor=white)
+![Livewire](https://img.shields.io/badge/Livewire-3.6.4-4E56A6?style=for-the-badge&logo=livewire&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1.16-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
 ## Features
 
 - 📝 **Markdown Support** - Write posts in Markdown with full support for GitHub Flavored Markdown
@@ -99,6 +104,24 @@ A modern, clean blog application built with Laravel 12, Livewire 3, and Torchlig
    ```bash
    composer run dev
    ```
+
+## Screenshots
+
+<div align="center">
+
+### Home Page
+![Home Page](./screenshots/homepage.png)
+
+### Dark Mode
+![Dark Mode](./screenshots/l-mode.png)
+
+### Settings Page
+![Settings Page](./screenshots/settings.png)
+
+
+
+</div>
+
 
 ## Usage
 
