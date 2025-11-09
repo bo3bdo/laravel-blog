@@ -1,8 +1,8 @@
 <x-layouts.app title="Posts">
     <div class="space-y-8">
             <div class="text-center animate-fade-in">
-            <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">Blog Posts</h1>
-            <p class="text-lg text-gray-600 dark:text-gray-400">Discover our latest articles and insights</p>
+            <h1 class="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">{{ $homeTitle }}</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400">{{ $homeDescription }}</p>
         </div>
 
         @auth

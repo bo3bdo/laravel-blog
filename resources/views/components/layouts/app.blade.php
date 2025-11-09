@@ -3,9 +3,9 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="{{ $description ?? 'A clean and simple blog' }}">
+        <meta name="description" content="{{ $description ?? $siteDescription }}">
 
-        <title>{{ $title ?? 'Blog' }} - {{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $title ?? 'Blog' }} - {{ $siteName }}</title>
 
         <script>
             // Prevent flash of unstyled content (FOUC) for dark mode
@@ -31,7 +31,7 @@
                     <div class="flex items-center gap-8">
                         <a href="{{ route('posts.index') }}" 
                             class="text-xl font-bold text-gray-900 dark:text-gray-100 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200 hover:scale-105">
-                            {{ config('app.name', 'Blog') }}
+                            {{ $siteName }}
                         </a>
                         <div class="hidden md:flex items-center gap-6">
                             <a href="{{ route('posts.index') }}" 
@@ -43,6 +43,12 @@
                                     class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-200 hover:after:w-full">
                                     New Post
                                 </a>
+                                @if(auth()->user()->isAdmin())
+                                    <a href="{{ route('settings.index') }}" 
+                                        class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-all duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-gray-900 dark:after:bg-gray-100 after:transition-all after:duration-200 hover:after:w-full">
+                                        Settings
+                                    </a>
+                                @endif
                             @endauth
                         </div>
                     </div>
@@ -106,8 +112,8 @@
         <footer class="mt-16 border-t border-gray-200 dark:border-gray-800">
             <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-8">
                 <div class="flex flex-col items-center justify-center gap-4 text-sm text-gray-600 dark:text-gray-400">
-                    <p>&copy; {{ date('Y') }} {{ config('app.name', 'Blog') }}. All rights reserved.</p>
-                    <p class="text-xs">Powered by Laravel & Tailwind CSS</p>
+                    <p>&copy; {{ date('Y') }} {{ $siteName }}. All rights reserved.</p>
+                    <p class="text-xs">{{ $footerText }}</p>
                 </div>
             </div>
         </footer>

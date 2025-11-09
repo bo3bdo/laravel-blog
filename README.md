@@ -16,6 +16,7 @@ A modern, clean blog application built with Laravel 12, Livewire 3, and Torchlig
 - 🔔 **Toast Notifications** - Beautiful toast notifications for success/error messages
 - ⏳ **Loading States** - Loading spinners and disabled states during form submissions
 - 📄 **Enhanced Pagination** - Beautiful, accessible pagination design
+- ⚙️ **Admin Settings** - Site settings management for administrators (site name, descriptions, etc.)
 
 ## Tech Stack
 
@@ -162,6 +163,8 @@ Torchlight supports all languages that VS Code supports. Simply specify the lang
 - `GET /register` - Show registration form (guest only)
 - `POST /register` - Process registration (guest only)
 - `POST /logout` - Logout (requires authentication)
+- `GET /settings` - Show settings page (admin only)
+- `PUT /settings` - Update site settings (admin only)
 
 ## Project Structure
 
@@ -170,21 +173,25 @@ app/
 ├── Http/
 │   ├── Controllers/
 │   │   ├── AuthController.php    # Authentication logic
-│   │   └── PostController.php    # Post CRUD operations
+│   │   ├── PostController.php    # Post CRUD operations
+│   │   └── SettingsController.php # Site settings management
 │   └── Requests/
 │       ├── LoginRequest.php
 │       ├── RegisterRequest.php
 │       ├── StorePostRequest.php
-│       └── UpdatePostRequest.php
+│       ├── UpdatePostRequest.php
+│       └── UpdateSettingsRequest.php
 ├── Livewire/
 │   └── Pages/
 │       └── Post/
 │           └── CreatePost.php    # Livewire component for post creation
 ├── Models/
 │   ├── Post.php                  # Post model with Markdown formatting
-│   └── User.php                  # User model
+│   ├── Setting.php               # Settings model with caching
+│   └── User.php                  # User model with admin support
 └── Policies/
-    └── PostPolicy.php            # Authorization policies
+    ├── PostPolicy.php            # Authorization policies for posts
+    └── SettingPolicy.php         # Authorization policies for settings
 
 resources/
 ├── css/
@@ -261,6 +268,37 @@ The application includes custom CSS animations:
 - **Smooth transitions** - All color changes are animated
 
 Custom animations are defined in `resources/css/app.css`.
+
+### Admin Settings
+
+The application includes a settings management system for administrators:
+
+- **Site Name** - Customize the site name displayed in header and page titles
+- **Site Description** - Meta description for SEO
+- **Home Page Title** - Main heading on the home page
+- **Home Page Description** - Subtitle or description below the home page title
+- **Footer Text** - Custom footer text
+
+To access settings:
+1. Make a user an admin by setting `is_admin = true` in the database
+2. Login as an admin user
+3. Click "Settings" in the navigation menu
+4. Update settings and save
+
+Settings are cached for performance and automatically cleared when updated.
+
+**Making a User Admin:**
+
+```bash
+php artisan tinker
+```
+
+```php
+$user = \App\Models\User::first();
+$user->update(['is_admin' => true]);
+```
+
+Settings are stored in the `settings` table and can be accessed via `Setting::get('key')` or through view variables shared globally.
 
 ## Testing
 
