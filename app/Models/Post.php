@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
+use Torchlight\Commonmark\V2\TorchlightExtension;
 
 class Post extends Model
 {
@@ -49,5 +52,18 @@ class Post extends Model
     public function scopeLatest($query)
     {
         return $query->orderBy('published_at', 'desc');
+    }
+
+    public function getFormattedContentAttribute(): string
+    {
+        $converter = new CommonMarkConverter([
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false,
+        ]);
+
+        $converter->getEnvironment()->addExtension(new GithubFlavoredMarkdownExtension);
+        $converter->getEnvironment()->addExtension(new TorchlightExtension);
+
+        return $converter->convert($this->content)->getContent();
     }
 }

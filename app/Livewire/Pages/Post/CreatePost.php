@@ -3,7 +3,6 @@
 namespace App\Livewire\Pages\Post;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
@@ -19,8 +18,17 @@ class CreatePost extends Component
 
     public bool $is_published = false;
 
+    public function mount(): void
+    {
+        if (! auth()->check()) {
+            $this->redirect(route('login'));
+        }
+    }
+
     public function save()
     {
+        $this->authorize('create', Post::class);
+
         $validated = $this->validate([
             'title' => ['required', 'string', 'max:255'],
             'excerpt' => ['nullable', 'string', 'max:500'],
@@ -29,17 +37,9 @@ class CreatePost extends Component
             'is_published' => ['boolean'],
         ]);
 
-        $userId = auth()->id() ?? User::firstOrCreate(
-            ['email' => 'admin@example.com'],
-            [
-                'name' => 'Admin',
-                'password' => bcrypt('password'),
-            ]
-        )->id;
-
         $post = Post::create([
             ...$validated,
-            'user_id' => $userId,
+            'user_id' => auth()->id(),
             'slug' => Str::slug($this->title),
             'published_at' => $this->is_published ? now() : null,
         ]);

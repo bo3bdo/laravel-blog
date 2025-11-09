@@ -31,9 +31,14 @@
         <div>
             <label for="content" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Content <span class="text-red-500">*</span>
+                <span class="text-xs font-normal text-gray-500 dark:text-gray-400 ml-2">(Markdown supported)</span>
             </label>
             <textarea wire:model="content" id="content" rows="15" required
-                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent font-mono text-sm"></textarea>
+                class="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400 focus:border-transparent font-mono text-sm"
+                placeholder="Write your content in Markdown format...&#10;&#10;Example:&#10;# Heading&#10;&#10;**Bold text**&#10;&#10;```php&#10;echo 'Hello World';&#10;```"></textarea>
+            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                You can use Markdown syntax including code blocks with syntax highlighting.
+            </p>
             @error('content')
                 <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
             @enderror

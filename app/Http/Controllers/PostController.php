@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Http\Requests\UpdatePostRequest;
 use App\Models\Post;
-use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 class PostController extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      * Display a listing of the resource.
      */
@@ -26,29 +28,15 @@ class PostController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
-    {
-        return view('posts.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
-        $userId = auth()->id() ?? User::firstOrCreate(
-            ['email' => 'admin@example.com'],
-            [
-                'name' => 'Admin',
-                'password' => bcrypt('password'),
-            ]
-        )->id;
+        $this->authorize('create', Post::class);
 
         $post = Post::create([
             ...$request->validated(),
-            'user_id' => $userId,
+            'user_id' => auth()->id(),
             'slug' => Str::slug($request->title),
         ]);
 
@@ -71,6 +59,8 @@ class PostController extends Controller
      */
     public function edit(Post $post): View
     {
+        $this->authorize('update', $post);
+
         return view('posts.edit', compact('post'));
     }
 
@@ -79,6 +69,8 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post): RedirectResponse
     {
+        $this->authorize('update', $post);
+
         $post->update([
             ...$request->validated(),
             'slug' => Str::slug($request->title),
@@ -93,6 +85,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post): RedirectResponse
     {
+        $this->authorize('delete', $post);
+
         $post->delete();
 
         return redirect()->route('posts.index')

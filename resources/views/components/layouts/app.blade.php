@@ -9,6 +9,7 @@
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @livewireStyles
+
     </head>
     <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased">
         <header class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
@@ -22,10 +23,30 @@
                             <a href="{{ route('posts.index') }}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
                                 Posts
                             </a>
-                            <a href="{{ route('posts.create') }}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
-                                New Post
-                            </a>
+                            @auth
+                                <a href="{{ route('posts.create') }}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+                                    New Post
+                                </a>
+                            @endauth
                         </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        @auth
+                            <span class="text-sm text-gray-600 dark:text-gray-400">{{ auth()->user()->name }}</span>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+                                    Logout
+                                </button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+                                Login
+                            </a>
+                            <a href="{{ route('register') }}" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors">
+                                Register
+                            </a>
+                        @endauth
                     </div>
                 </div>
             </nav>
