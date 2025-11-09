@@ -9,3 +9,71 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+/* Enable dark mode with class strategy */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Custom Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Skeleton Loader */
+.skeleton {
+    @apply bg-gray-200 dark:bg-gray-800 rounded animate-pulse;
+}
+
+.skeleton-text {
+    @apply h-4 bg-gray-200 dark:bg-gray-800 rounded animate-pulse;
+}
+
+/* Smooth Transitions */
+* {
+    @apply transition-colors duration-200;
+}
+
+/* Better Focus States */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    @apply outline-none ring-2 ring-gray-500 dark:ring-gray-400 ring-offset-2 dark:ring-offset-gray-900;
+}
+
+/* Loading Spinner */
+.spinner {
+    @apply inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin;
+}

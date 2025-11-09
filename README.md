@@ -11,6 +11,11 @@ A modern, clean blog application built with Laravel 12, Livewire 3, and Torchlig
 - ⚡ **Livewire 3** - Interactive post creation with real-time validation
 - 🎯 **Clean Design** - PaperMod-inspired minimalist design with dark mode support
 - 📱 **Responsive** - Fully responsive design that works on all devices
+- 🌙 **Dark Mode Toggle** - Manual dark/light mode switching with localStorage persistence
+- ✨ **Smooth Animations** - Fade-in effects, hover animations, and smooth transitions
+- 🔔 **Toast Notifications** - Beautiful toast notifications for success/error messages
+- ⏳ **Loading States** - Loading spinners and disabled states during form submissions
+- 📄 **Enhanced Pagination** - Beautiful, accessible pagination design
 
 ## Tech Stack
 
@@ -133,6 +138,15 @@ Torchlight supports all languages that VS Code supports. Simply specify the lang
 - `css` - CSS
 - And many more...
 
+### UX/UI Features
+
+- **Dark Mode Toggle** - Click the sun/moon icon in the header to switch between light and dark themes. Your preference is saved in localStorage.
+- **Smooth Animations** - All pages feature fade-in animations and smooth transitions for a polished experience.
+- **Loading States** - Forms show loading spinners and disable buttons during submission to prevent double submissions.
+- **Toast Notifications** - Success and error messages appear as elegant toast notifications that auto-dismiss after 5 seconds.
+- **Enhanced Interactions** - Hover effects, focus states, and smooth transitions throughout the interface.
+- **Responsive Pagination** - Beautiful pagination controls that work seamlessly on all screen sizes.
+
 ## Routes
 
 - `GET /` - Redirects to posts index
@@ -173,21 +187,31 @@ app/
     └── PostPolicy.php            # Authorization policies
 
 resources/
-├── views/
-│   ├── auth/
-│   │   ├── login.blade.php
-│   │   └── register.blade.php
-│   ├── components/
-│   │   └── layouts/
-│   │       └── app.blade.php     # Main layout
-│   ├── livewire/
-│   │   └── pages/
-│   │       └── post/
-│   │           └── create-post.blade.php
-│   └── posts/
-│       ├── index.blade.php
-│       ├── show.blade.php
-│       └── edit.blade.php
+├── css/
+│   └── app.css                    # Tailwind CSS with custom animations
+├── js/
+│   ├── app.js                     # Main JS entry point
+│   ├── dark-mode.js               # Dark mode toggle logic
+│   └── toast.js                   # Toast notification system
+└── views/
+    ├── auth/
+    │   ├── login.blade.php
+    │   └── register.blade.php
+    ├── components/
+    │   ├── layouts/
+    │   │   └── app.blade.php     # Main layout with dark mode support
+    │   └── skeleton-post.blade.php # Skeleton loader component
+    ├── livewire/
+    │   └── pages/
+    │       └── post/
+    │           └── create-post.blade.php
+    ├── posts/
+    │   ├── index.blade.php
+    │   ├── show.blade.php
+    │   └── edit.blade.php
+    └── vendor/
+        └── pagination/
+            └── tailwind.blade.php # Custom pagination design
 ```
 
 ## Configuration
@@ -210,6 +234,33 @@ Authentication is handled by Laravel's built-in authentication system. Users can
 - Login with email/password
 - Logout
 - Remember me functionality
+
+### Dark Mode
+
+Dark mode is implemented using Tailwind CSS v4's `@custom-variant` feature:
+
+- Toggle button in the header (sun/moon icon)
+- Preference saved in browser localStorage
+- Auto-detects system preference on first visit
+- Smooth transitions between themes
+- Works with all Tailwind dark mode utilities (`dark:*`)
+
+The dark mode configuration is in `resources/css/app.css`:
+
+```css
+@custom-variant dark (&:where(.dark, .dark *));
+```
+
+### Animations & Transitions
+
+The application includes custom CSS animations:
+
+- **Fade-in** - Pages fade in smoothly on load
+- **Staggered animations** - Post items animate in sequence
+- **Hover effects** - Interactive elements respond to hover
+- **Smooth transitions** - All color changes are animated
+
+Custom animations are defined in `resources/css/app.css`.
 
 ## Testing
 

@@ -1,5 +1,5 @@
 <x-layouts.app title="Login">
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md mx-auto animate-fade-in">
         <div class="mb-8">
             <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">Login</h1>
             <p class="text-gray-600 dark:text-gray-400">Sign in to your account</p>
@@ -42,7 +42,7 @@
 
             <div class="flex items-center gap-4 pt-4">
                 <button type="submit"
-                    class="w-full px-6 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors font-medium">
+                    class="w-full px-6 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg hover:bg-gray-800 dark:hover:bg-gray-200 transition-all duration-200 font-medium hover:shadow-lg">
                     Login
                 </button>
             </div>
